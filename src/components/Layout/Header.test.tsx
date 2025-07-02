@@ -3,6 +3,18 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Header from './Header';
 
+beforeAll(() => {
+  jest.spyOn(console, 'warn').mockImplementation((msg) => {
+    if (
+      typeof msg === 'string' &&
+      msg.includes('React Router Future Flag Warning')
+    ) {
+      return;
+    }
+    console.warn(msg);
+  });
+});
+
 describe('Header Component', () => {
   test('renders the app title', () => {
     render(
