@@ -3,6 +3,18 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Login from './Login';
 
+beforeAll(() => {
+  jest.spyOn(console, 'warn').mockImplementation((msg) => {
+    if (
+      typeof msg === 'string' &&
+      msg.includes('React Router Future Flag Warning')
+    ) {
+      return;
+    }
+    console.warn(msg);
+  });
+});
+
 describe('Login Component', () => {
   test('renders email and password inputs', () => {
     render(
