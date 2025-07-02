@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/global.css';
+import { signup } from '../../services/simulated-auth';
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -16,9 +17,11 @@ const Signup: React.FC = () => {
       return;
     }
 
-    // TODO: send signup data to backend
     console.log('Signing up:', { email, password });
 
+    // TODO - test this into being
+    signup(email, password);
+    
     // Simulate successful signup
     navigate('/');
   };

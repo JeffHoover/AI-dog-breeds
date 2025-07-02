@@ -1,6 +1,6 @@
 // src/components/Auth/Signup.tsx
 import React, { useState } from 'react';
-import { signup } from '../services/api'; // fixed path
+import { signup } from '../services/simulated-api'; // fixed path
 import { useNavigate } from 'react-router-dom';
 
 const SignupPage: React.FC = () => {

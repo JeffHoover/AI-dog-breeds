@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/global.css'; // adjust import if needed
+import { login } from '../../services/simulated-auth';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -10,8 +11,10 @@ const Login: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // TODO: Call your auth service here
     console.log('Logging in with:', email, password);
+
+    // TODO - test into being
+    login(email, password);
 
     // Simulate login success:
     navigate('/');

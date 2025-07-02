@@ -13,5 +13,6 @@ describe('index.tsx', () => {
   test('renders App without crashing', () => {
     const root = ReactDOM.createRoot(document.getElementById('root')!);
     expect(() => root.render(<App isAuthenticated={true}/>)).not.toThrow();
+    expect(() => root.render(<App isAuthenticated={false}/>)).not.toThrow();
   });
 });
