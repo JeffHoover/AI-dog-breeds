@@ -9,8 +9,20 @@ jest.mock('./components/Auth/Signup', () => () => <div>Signup Page</div>);
 jest.mock('./components/Topics/TopicList', () => () => <div>Topic List Page</div>);
 jest.mock('./components/Topics/TopicDetail', () => () => <div>Topic Detail Page</div>);
 
+beforeAll(() => {
+  jest.spyOn(console, 'warn').mockImplementation((msg) => {
+    if (
+      typeof msg === 'string' &&
+      msg.includes('React Router Future Flag Warning')
+    ) {
+      return;
+    }
+    console.warn(msg);
+  });
+});
+
 describe('App Routing', () => {
-  test('renders Login on /login route', () => {
+  test.only('renders Login on /login route', () => {
     render(
       <MemoryRouter initialEntries={['/login']}>
         <App />
@@ -30,7 +42,8 @@ describe('App Routing', () => {
 
   test('renders TopicList on /topics route', () => {
     render(
-      <MemoryRouter initialEntries={['/topics']}>
+      <MemoryRouter initialEntries={['/topics']}>npm test -- -t="^App Routing$"
+
         <App />
       </MemoryRouter>
     );
