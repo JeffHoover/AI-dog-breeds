@@ -22,7 +22,7 @@ beforeAll(() => {
 });
 
 describe('App Routing', () => {
-  test.only('renders Login on /login route', () => {
+  test('renders Login on /login route', () => {
     render(
       <MemoryRouter initialEntries={['/login']}>
         <App />
