@@ -49,7 +49,6 @@ describe('Signup Component', () => {
     expect(confirmPasswordInput).toHaveValue('mysecret');
   });
 
-  // TODO - fails
   test('calls handleSubmit when form is submitted', () => {
     const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
