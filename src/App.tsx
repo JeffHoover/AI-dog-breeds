@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
@@ -11,11 +11,13 @@ import TopicDetail from './components/Topics/TopicDetail';
 import NotFoundPage from './pages/NotFoundPage';
 import HomePage from './pages/HomePage';
 
-const isAuthenticated = true; // Change this logic later based on auth state
+interface AppProps {
+  isAuthenticated: boolean;
+}
 
-const App: React.FC = () => {
+const App: React.FC<AppProps> = ({ isAuthenticated }) => {
   return (
-    <BrowserRouter>
+    <>
       <Header />
       <main>
         <Routes>
@@ -33,13 +35,18 @@ const App: React.FC = () => {
           <Route path="/topics" element={<TopicList />} />
           <Route
             path="/topics/:id"
-            element={<TopicDetail topic={{ id: '123', title: 'Sample Topic' }} messages={[]} />}
+            element={
+              <TopicDetail
+                topic={{ id: '123', title: 'Sample Topic' }}
+                messages={[]}
+              />
+            }
           />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
       <Footer />
-    </BrowserRouter>
+    </>
   );
 };
 

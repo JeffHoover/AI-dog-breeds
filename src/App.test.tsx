@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
 // Mock components to isolate App tests
@@ -25,7 +25,7 @@ describe('App Routing', () => {
   test('renders Login on /login route', () => {
     render(
       <MemoryRouter initialEntries={['/login']}>
-        <App />
+        <App isAuthenticated={false} />
       </MemoryRouter>
     );
     expect(screen.getByText(/login page/i)).toBeInTheDocument();
@@ -34,7 +34,7 @@ describe('App Routing', () => {
   test('renders Signup on /signup route', () => {
     render(
       <MemoryRouter initialEntries={['/signup']}>
-        <App />
+        <App isAuthenticated={false} />
       </MemoryRouter>
     );
     expect(screen.getByText(/signup page/i)).toBeInTheDocument();
@@ -42,9 +42,8 @@ describe('App Routing', () => {
 
   test('renders TopicList on /topics route', () => {
     render(
-      <MemoryRouter initialEntries={['/topics']}>npm test -- -t="^App Routing$"
-
-        <App />
+      <MemoryRouter initialEntries={['/topics']}>
+        <App isAuthenticated={true} />
       </MemoryRouter>
     );
     expect(screen.getByText(/topic list page/i)).toBeInTheDocument();
@@ -53,7 +52,7 @@ describe('App Routing', () => {
   test('renders TopicDetail on /topics/:id route', () => {
     render(
       <MemoryRouter initialEntries={['/topics/123']}>
-        <App />
+        <App isAuthenticated={true} />
       </MemoryRouter>
     );
     expect(screen.getByText(/topic detail page/i)).toBeInTheDocument();
@@ -62,11 +61,18 @@ describe('App Routing', () => {
   test('redirects from / to /login when unauthenticated', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
-        <App />
+        <App isAuthenticated={false} />
       </MemoryRouter>
     );
-    // Because App redirects unauthenticated users to /login,
-    // it should render the Login Page
     expect(screen.getByText(/login page/i)).toBeInTheDocument();
+  });
+
+  test('redirects from / to /topics when authenticated', () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <App isAuthenticated={true} />
+      </MemoryRouter>
+    );
+    expect(screen.getByText(/topic list page/i)).toBeInTheDocument();
   });
 });
