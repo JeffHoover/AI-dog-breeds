@@ -65,3 +65,5 @@ Here’s a code review of your repo **AI-dog-breeds**, focusing on non-canonical
 ---
 
 If you’d like a deeper review on a specific part of the code, or want suggestions for implementing any missing features, let me know!
+
+https://docs.github.com/en/copilot/how-tos/agents/copilot-code-review/configuring-automatic-code-review-by-copilot
