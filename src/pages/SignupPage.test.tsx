@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Signup from './SignupPage';
+import SignupPage from './SignupPage';
 
 beforeAll(() => {
   jest.spyOn(console, 'warn').mockImplementation((msg) => {
@@ -19,7 +19,7 @@ describe('Signup Component', () => {
   test('renders signup form fields and button', () => {
     render(
       <MemoryRouter>
-        <Signup />
+        <SignupPage />
       </MemoryRouter>
     );
 
@@ -32,7 +32,7 @@ describe('Signup Component', () => {
   test('calls handleSubmit when form is submitted', () => {
     render(
       <MemoryRouter>
-        <Signup />
+        <SignupPage />
       </MemoryRouter>
     );
 

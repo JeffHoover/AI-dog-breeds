@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { signup } from '../services/api'; // fixed path
 import { useNavigate } from 'react-router-dom';
 
-const Signup: React.FC = () => {
+const SignupPage: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -72,4 +72,4 @@ const Signup: React.FC = () => {
   );
 };
 
-export default Signup;
+export default SignupPage;
