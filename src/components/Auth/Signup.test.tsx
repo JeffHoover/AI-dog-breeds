@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Signup from './Signup';
 
@@ -23,9 +23,9 @@ describe('Signup Component', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByLabelText(/^email:?$/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/^password:?$/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/^confirm password:?$/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/^Password:/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/^Confirm Password:/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /sign up/i })).toBeInTheDocument();
   });
 
@@ -36,9 +36,9 @@ describe('Signup Component', () => {
       </MemoryRouter>
     );
 
-    const emailInput = screen.getByLabelText(/^email:?$/i);
-    const passwordInput = screen.getByLabelText(/^password:?$/i);
-    const confirmPasswordInput = screen.getByLabelText(/^confirm password:?$/i);
+    const emailInput = screen.getByLabelText(/email/i);
+    const passwordInput = screen.getByLabelText(/^Password:/i)
+    const confirmPasswordInput = screen.getByLabelText(/^Confirm Password:/i);
 
     fireEvent.change(emailInput, { target: { value: 'newuser@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'mysecret' } });
@@ -49,24 +49,35 @@ describe('Signup Component', () => {
     expect(confirmPasswordInput).toHaveValue('mysecret');
   });
 
+  // TODO - fails
   test('calls handleSubmit when form is submitted', () => {
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+
     render(
       <MemoryRouter>
         <Signup />
       </MemoryRouter>
     );
 
-    const emailInput = screen.getByLabelText(/^email:?$/i);
-    const passwordInput = screen.getByLabelText(/^password:?$/i);
-    const confirmPasswordInput = screen.getByLabelText(/^confirm password:?$/i);
+    const emailInput = screen.getByLabelText(/email/i);
+    const passwordInput = screen.getByLabelText(/^Password:/i)
+    const confirmPasswordInput = screen.getByLabelText(/^Confirm Password:/i);
+
     const submitButton = screen.getByRole('button', { name: /sign up/i });
 
     fireEvent.change(emailInput, { target: { value: 'user@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'pass123' } });
     fireEvent.change(confirmPasswordInput, { target: { value: 'pass123' } });
-    fireEvent.click(submitButton);
 
-    // For now, no assertion except that inputs remain filled
-    expect(emailInput).toHaveValue('user@example.com');
+    act(() => {
+      fireEvent.click(submitButton);
+    });
+
+    expect(logSpy).toHaveBeenCalledWith('Signing up:', {
+      email: 'user@example.com',
+      password: 'pass123',
+    });
+
+    logSpy.mockRestore();
   });
 });

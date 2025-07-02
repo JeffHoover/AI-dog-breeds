@@ -1,53 +1,75 @@
+// src/components/Auth/Signup.tsx
 import React, { useState } from 'react';
+import { signup } from '../services/api'; // fixed path
+import { useNavigate } from 'react-router-dom';
 
-type SignupPageProps = {
-  onSubmit?: (data: { email: string; password: string; confirmPassword: string }) => void;
-};
-
-const SignupPage: React.FC<SignupPageProps> = ({ onSubmit }) => {
+const Signup: React.FC = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (onSubmit) {
-      onSubmit({ email, password, confirmPassword });
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    try {
+      const result = await signup(email, password);
+      if (result.success) {
+        navigate('/login');
+      } else {
+        setError('Signup failed');
+      }
+    } catch (err) {
+      setError('Signup failed');
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="email-input">Email</label>
-      <input
-        id="email-input"
-        type="email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        aria-label="Email"
-      />
+      <div>
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
+        />
+      </div>
 
-      <label htmlFor="password-input">Password</label>
-      <input
-        id="password-input"
-        type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        aria-label="Password"
-      />
+      <div>
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+        />
+      </div>
 
-      <label htmlFor="confirm-password-input">Confirm Password</label>
-      <input
-        id="confirm-password-input"
-        type="password"
-        value={confirmPassword}
-        onChange={e => setConfirmPassword(e.target.value)}
-        aria-label="Confirm Password"
-      />
+      <div>
+        <label htmlFor="confirmPassword">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          value={confirmPassword}
+          onChange={e => setConfirmPassword(e.target.value)}
+          required
+        />
+      </div>
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <button type="submit">Sign Up</button>
     </form>
   );
 };
 
-export default SignupPage;
+export default Signup;
