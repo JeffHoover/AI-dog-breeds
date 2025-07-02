@@ -1,0 +1,25 @@
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import Header from './Header';
+
+describe('Header Component', () => {
+  test('renders the app title', () => {
+    render(
+      <MemoryRouter>
+        <Header />
+      </MemoryRouter>
+    );
+    expect(screen.getByText(/dog breeds app/i)).toBeInTheDocument();
+  });
+
+  test('renders navigation links', () => {
+    render(
+      <MemoryRouter>
+        <Header />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole('link', { name: /login/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /signup/i })).toBeInTheDocument();
+  });
+});
