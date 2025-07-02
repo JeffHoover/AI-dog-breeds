@@ -10,8 +10,10 @@ type TopicItemProps = {
   onClick?: () => void;
 };
 
-const TopicItem: React.FC<TopicItemProps> = () => {
-  return <div>Not implemented yet</div>;
+const TopicItem: React.FC<TopicItemProps> = ({ topic, onClick }) => {
+  return <div onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
+    {topic.title}
+  </div>;
 };
 
 export default TopicItem;
