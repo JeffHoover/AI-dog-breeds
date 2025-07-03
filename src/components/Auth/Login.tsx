@@ -8,14 +8,18 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     console.log('Logging in with:', email, password);
 
-    // TODO - test into being
-    login(email, password);
+    var token = await login(email, password);
 
+    // TODO - Do something better than just storing the token in localStorage
+    localStorage.setItem('dog-breeds-app-token', token.token);
+    console.log('Login successful, token:', localStorage.getItem('dog-breeds-app-token'));
+
+    // TODO - should / be a home page?
     // Simulate login success:
     navigate('/');
   };
