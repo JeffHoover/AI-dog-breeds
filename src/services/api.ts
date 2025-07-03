@@ -1,4 +1,5 @@
 // src/api/api.ts
+import { getToken } from './auth';
 
 export type Topic = {
   id: string;
@@ -19,10 +20,7 @@ export type LoginResponse = {
   token: string;
 };
 
-import { getToken } from './auth';
-
-process.env.VITE_API_URL = 'http://localhost:5000';
-const API_BASE_URL = process.env.VITE_API_URL || '';
+const API_BASE_URL = process.env.REACT_APP_API_URL || '';
 
 
 async function handleResponse<T>(response: Response): Promise<T> {
@@ -100,3 +98,11 @@ export async function login(
 }
 
 export {}; // keep this to ensure the file is treated as a module
+
+/* 
+Put all API calls (signup, login, fetchTopics, etc.) into api.ts as a centralized API client.
+
+Keep auth token related utilities (getToken, logout, isAuthenticated) in auth.ts.
+
+Import your API functions where needed from api.ts.
+*/
