@@ -52,8 +52,10 @@ app.post('/api/auth/signup', (req, res) => {
   res.json({ success: true });
 });
 
-app.post('/api/login', (req, res) => {
+app.post('/api/auth/login', (req, res) => {
   // In a real app, you'd check credentials
+    console.log('Login:', req.body);
+
   res.json({ token: 'dummy-token' });
 });
 
