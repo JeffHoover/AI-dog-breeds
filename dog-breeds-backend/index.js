@@ -33,6 +33,8 @@ app.post('/api/topics/:id/messages', (req, res) => {
   const topicId = req.params.id;
   const text = req.body.text;
 
+// TODO - Don't allow duplicate "topicId"s
+
   const newMessage = {
     id: Math.random().toString(36).substring(2, 9),
     topicId,
@@ -44,7 +46,7 @@ app.post('/api/topics/:id/messages', (req, res) => {
 });
 
 // Dummy auth route
-app.post('/api/signup', (req, res) => {
+app.post('/api/auth/signup', (req, res) => {
   // In a real app, you'd save the user and hash their password
   console.log('New signup:', req.body);
   res.json({ success: true });
