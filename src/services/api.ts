@@ -83,6 +83,10 @@ export async function signup(
   return handleResponse<SignupResponse>(res);
 }
 
+export function logout() {
+  localStorage.removeItem('dog-breeds-app-token');
+}
+
 export async function login(
   email: string,
   password: string
@@ -99,10 +103,3 @@ export async function login(
 
 export {}; // keep this to ensure the file is treated as a module
 
-/* 
-Put all API calls (signup, login, fetchTopics, etc.) into api.ts as a centralized API client.
-
-Keep auth token related utilities (getToken, logout, isAuthenticated) in auth.ts.
-
-Import your API functions where needed from api.ts.
-*/

@@ -12,7 +12,7 @@ export function getToken(): string | null {
 
 // Check if user is authenticated
 export function isAuthenticated(): boolean {
-  return getToken() !== null;
+ return getToken() !== null;
 }
 
 export {}; // ensure this is a module

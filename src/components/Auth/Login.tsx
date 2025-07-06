@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/global.css'; // adjust import if needed
+import '../../styles/global.css';
 import { login } from '../../services/api';
 
-const Login: React.FC = () => {
+interface LoginProps {
+  onLogin: () => void;
+}
+
+const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -11,17 +15,24 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log('Logging in with:', email, password);
+    try {
+      const token = await login(email, password);
 
-    var token = await login(email, password);
+      localStorage.setItem('dog-breeds-app-token', token.token);
+      console.log(
+        'Login successful, token:',
+        localStorage.getItem('dog-breeds-app-token')
+      );
 
-    // TODO - Do something better than just storing the token in localStorage
-    localStorage.setItem('dog-breeds-app-token', token.token);
-    console.log('Login successful, token:', localStorage.getItem('dog-breeds-app-token'));
+      // 🔥 notify App about successful login
+      onLogin();
 
-    // TODO - should / be a home page?
-    // Simulate login success:
-    navigate('/');
+      // redirect to home page
+      navigate('/home');
+    } catch (error) {
+      console.error('Login failed:', error);
+      // Optionally show an error message
+    }
   };
 
   return (

@@ -19,7 +19,9 @@ describe('Login Component', () => {
   test('renders email and password inputs', () => {
     render(
       <MemoryRouter>
-        <Login />
+        <Login onLogin={function (): void {
+          throw new Error('Function not implemented.');
+        } } />
       </MemoryRouter>
     );
 
@@ -31,7 +33,9 @@ describe('Login Component', () => {
   test('updates input values on change', () => {
     render(
       <MemoryRouter>
-        <Login />
+        <Login onLogin={function (): void {
+          throw new Error('Function not implemented.');
+        } } />
       </MemoryRouter>
     );
 
@@ -48,7 +52,9 @@ describe('Login Component', () => {
   test('calls handleSubmit on form submission', () => {
     render(
       <MemoryRouter>
-        <Login />
+        <Login onLogin={function (): void {
+          throw new Error('Function not implemented.');
+        } } />
       </MemoryRouter>
     );
 

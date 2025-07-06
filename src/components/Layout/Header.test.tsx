@@ -19,7 +19,9 @@ describe('Header Component', () => {
   test('renders the app title', () => {
     render(
       <MemoryRouter>
-        <Header />
+        <Header isAuthenticated={true} onLogout={function (): void {
+          throw new Error('Function not implemented.');
+        } } />
       </MemoryRouter>
     );
     expect(screen.getByText(/dog breeds app/i)).toBeInTheDocument();
@@ -28,7 +30,9 @@ describe('Header Component', () => {
   test('renders navigation links', () => {
     render(
       <MemoryRouter>
-        <Header />
+        <Header isAuthenticated={false} onLogout={function (): void {
+          throw new Error('Function not implemented.');
+        } } />
       </MemoryRouter>
     );
     expect(screen.getByRole('link', { name: /login/i })).toBeInTheDocument();
