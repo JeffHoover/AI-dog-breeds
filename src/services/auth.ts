@@ -1,4 +1,4 @@
-const TOKEN_KEY = 'dog-breeds-app-token';
+const TOKEN_KEY = "dog-breeds-app-token";
 
 // Log out user by removing token
 export function logout() {
@@ -12,7 +12,7 @@ export function getToken(): string | null {
 
 // Check if user is authenticated
 export function isAuthenticated(): boolean {
- return getToken() !== null;
+  return getToken() !== null;
 }
 
 export {}; // ensure this is a module

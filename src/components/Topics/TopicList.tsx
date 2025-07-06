@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { fetchTopics, Topic } from '../../services/api';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { fetchTopics, Topic } from "../../services/api";
 
 const TopicList: React.FC = () => {
   const [topics, setTopics] = useState<Topic[]>([]);
@@ -9,12 +9,12 @@ const TopicList: React.FC = () => {
 
   useEffect(() => {
     fetchTopics()
-      .then(data => {
+      .then((data) => {
         setTopics(data);
         setLoading(false);
       })
       .catch(() => {
-        setError('Failed to load topics.');
+        setError("Failed to load topics.");
         setLoading(false);
       });
   }, []);
@@ -27,7 +27,7 @@ const TopicList: React.FC = () => {
     <div>
       <h2>Topics</h2>
       <ul>
-        {topics.map(topic => (
+        {topics.map((topic) => (
           <li key={topic.id}>
             <Link to={`/topics/${topic.id}`}>{topic.title}</Link>
           </li>

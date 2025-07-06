@@ -1,5 +1,5 @@
 // src/api/api.ts
-import { getToken } from './auth';
+import { getToken } from "./auth";
 
 export type Topic = {
   id: string;
@@ -20,14 +20,13 @@ export type LoginResponse = {
   token: string;
 };
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || '';
-
+const API_BASE_URL = process.env.REACT_APP_API_URL || "";
 
 async function handleResponse<T>(response: Response): Promise<T> {
   if (!response.ok) {
     const errorText = await response.text();
     throw new Error(
-      `API error ${response.status}: ${errorText || response.statusText}`
+      `API error ${response.status}: ${errorText || response.statusText}`,
     );
   }
   return response.json() as Promise<T>;
@@ -55,13 +54,13 @@ export async function fetchMessages(topicId: string): Promise<Message[]> {
 
 export async function postMessage(
   topicId: string,
-  text: string
+  text: string,
 ): Promise<Message> {
   const token = getToken();
   const res = await fetch(`${API_BASE_URL}/api/topics/${topicId}/messages`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ text }),
@@ -71,12 +70,12 @@ export async function postMessage(
 
 export async function signup(
   email: string,
-  password: string
+  password: string,
 ): Promise<SignupResponse> {
   const res = await fetch(`${API_BASE_URL}/api/auth/signup`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
   });
@@ -84,17 +83,17 @@ export async function signup(
 }
 
 export function logout() {
-  localStorage.removeItem('dog-breeds-app-token');
+  localStorage.removeItem("dog-breeds-app-token");
 }
 
 export async function login(
   email: string,
-  password: string
+  password: string,
 ): Promise<LoginResponse> {
   const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
   });
@@ -102,4 +101,3 @@ export async function login(
 }
 
 export {}; // keep this to ensure the file is treated as a module
-

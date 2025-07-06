@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 type LoginPageProps = {
   onSubmit?: (credentials: { email: string; password: string }) => void;
 };
 
 const LoginPage: React.FC<LoginPageProps> = ({ onSubmit }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onSubmit }) => {
         id="email-input"
         type="email"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
         aria-label="Email"
       />
 
@@ -31,7 +31,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onSubmit }) => {
         id="password-input"
         type="password"
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
         aria-label="Password"
       />
 

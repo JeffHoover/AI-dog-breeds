@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 type Topic = {
   id: string;
@@ -16,7 +16,7 @@ const TopicPage: React.FC<TopicPageProps> = ({ topics }) => {
 
   return (
     <ul>
-      {topics.map(topic => (
+      {topics.map((topic) => (
         <li key={topic.id}>{topic.title}</li>
       ))}
     </ul>

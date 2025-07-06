@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import Header from './components/Layout/Header';
-import Footer from './components/Layout/Footer';
-import Login from './components/Auth/Login';
-import Signup from './components/Auth/Signup';
-import HomePage from './pages/HomePage';
-import TopicList from './components/Topics/TopicList';
-import TopicDetail from './components/Topics/TopicDetail';
-import NotFoundPage from './pages/NotFoundPage';
-import { getToken, logout } from './services/auth';
+import React, { useEffect, useState } from "react";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import Header from "./components/Layout/Header";
+import Footer from "./components/Layout/Footer";
+import Login from "./components/Auth/Login";
+import Signup from "./components/Auth/Signup";
+import HomePage from "./pages/HomePage";
+import TopicList from "./components/Topics/TopicList";
+import TopicDetail from "./components/Topics/TopicDetail";
+import NotFoundPage from "./pages/NotFoundPage";
+import { getToken, logout } from "./services/auth";
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -22,7 +22,7 @@ const App: React.FC = () => {
   const handleLogout = () => {
     logout();
     setIsAuthenticated(false);
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -33,17 +33,17 @@ const App: React.FC = () => {
           <Route
             path="/"
             element={
-              isAuthenticated
-                ? <Navigate to="/home" replace />
-                : <Navigate to="/login" replace />
+              isAuthenticated ? (
+                <Navigate to="/home" replace />
+              ) : (
+                <Navigate to="/login" replace />
+              )
             }
           />
           <Route path="/home" element={<HomePage />} />
           <Route
             path="/login"
-            element={
-              <Login onLogin={() => setIsAuthenticated(true)} />
-            }
+            element={<Login onLogin={() => setIsAuthenticated(true)} />}
           />
           <Route path="/signup" element={<Signup />} />
           <Route path="/topics" element={<TopicList />} />
@@ -51,7 +51,7 @@ const App: React.FC = () => {
             path="/topics/:id"
             element={
               <TopicDetail
-                topic={{ id: '123', title: 'Sample Topic' }}
+                topic={{ id: "123", title: "Sample Topic" }}
                 messages={[]}
               />
             }

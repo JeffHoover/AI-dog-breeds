@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 type NewTopicFormProps = {
   onSubmit: (title: string) => void;
 };
 
 const NewTopicForm: React.FC<NewTopicFormProps> = ({ onSubmit }) => {
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim()) return;
     onSubmit(title.trim());
-    setTitle('');
+    setTitle("");
   };
 
   return (

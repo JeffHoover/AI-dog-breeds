@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 type NewMessageFormProps = {
   onSubmit: (message: string) => void;
 };
 
 const NewMessageForm: React.FC<NewMessageFormProps> = ({ onSubmit }) => {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim()) return;
     onSubmit(message.trim());
-    setMessage('');
+    setMessage("");
   };
 
   return (
@@ -21,7 +21,7 @@ const NewMessageForm: React.FC<NewMessageFormProps> = ({ onSubmit }) => {
         id="message-input"
         type="text"
         value={message}
-        onChange={e => setMessage(e.target.value)}
+        onChange={(e) => setMessage(e.target.value)}
         aria-label="Message"
       />
       <button type="submit">Send</button>

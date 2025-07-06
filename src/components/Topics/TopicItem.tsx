@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 type Topic = {
   id: string;
@@ -11,9 +11,11 @@ type TopicItemProps = {
 };
 
 const TopicItem: React.FC<TopicItemProps> = ({ topic, onClick }) => {
-  return <div onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
-    {topic.title}
-  </div>;
+  return (
+    <div onClick={onClick} style={{ cursor: onClick ? "pointer" : "default" }}>
+      {topic.title}
+    </div>
+  );
 };
 
 export default TopicItem;

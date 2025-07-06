@@ -1,13 +1,13 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import SignupPage from './SignupPage';
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import SignupPage from "./SignupPage";
 
 beforeAll(() => {
-  jest.spyOn(console, 'warn').mockImplementation((msg) => {
+  jest.spyOn(console, "warn").mockImplementation((msg) => {
     if (
-      typeof msg === 'string' &&
-      msg.includes('React Router Future Flag Warning')
+      typeof msg === "string" &&
+      msg.includes("React Router Future Flag Warning")
     ) {
       return;
     }
@@ -15,39 +15,41 @@ beforeAll(() => {
   });
 });
 
-describe('Signup Component', () => {
-  test('renders signup form fields and button', () => {
+describe("Signup Component", () => {
+  test("renders signup form fields and button", () => {
     render(
       <MemoryRouter>
         <SignupPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/^password$/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/confirm password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /sign up/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /sign up/i }),
+    ).toBeInTheDocument();
   });
 
-  test('calls handleSubmit when form is submitted', () => {
+  test("calls handleSubmit when form is submitted", () => {
     render(
       <MemoryRouter>
         <SignupPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     fireEvent.change(screen.getByLabelText(/email/i), {
-      target: { value: 'test@example.com' },
+      target: { value: "test@example.com" },
     });
     fireEvent.change(screen.getByLabelText(/^password$/i), {
-      target: { value: 'abc123' },
+      target: { value: "abc123" },
     });
     fireEvent.change(screen.getByLabelText(/confirm password/i), {
-      target: { value: 'abc123' },
+      target: { value: "abc123" },
     });
 
-    fireEvent.click(screen.getByRole('button', { name: /sign up/i }));
+    fireEvent.click(screen.getByRole("button", { name: /sign up/i }));
 
-    expect(screen.getByLabelText(/email/i)).toHaveValue('test@example.com');
+    expect(screen.getByLabelText(/email/i)).toHaveValue("test@example.com");
   });
 });
